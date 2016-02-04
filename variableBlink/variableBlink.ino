@@ -1,41 +1,26 @@
-/*
-  Blink
-  Turns on an LED on for one second, then off for one second, repeatedly.
 
-  Most Arduinos have an on-board LED you can control. On the Uno and
-  Leonardo, it is attached to digital pin 13. If you're unsure what
-  pin the on-board LED is connected to on your Arduino model, check
-  the documentation at http://www.arduino.cc
-
-  This example code is in the public domain.
-
-  modified 8 May 2014
-  by Scott Fitzgerald
- */
-
-int flashTime = 1000;
+int period = 300;
 int changeSize = 100;
 int directn = 1;
-// the setup function runs once when you press reset or power the board
+
 void setup() {
-  // initialize digital pin 13 as an output.
+  
   
   pinMode(13, OUTPUT);
 }
 
-// the loop function runs over and over again forever
+
 void loop() {
-  digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(flashTime);              // wait for a second
-  digitalWrite(13, LOW);    // turn the LED off by making the voltage LOW
-  delay(flashTime);              // wait for a second
-  flashTime = flashTime - (changeSize * directn);
-  if (flashTime < 20 || flashTime > 1000) {
-    directn = -directn;
+  digitalWrite(13, HIGH);   
+  delay(period);         
+  digitalWrite(13, LOW);    
+  delay(period);         
+  
+  period = period - (changeSize * directn); //alter the period of the flash by adding changeSize (or subtracting when directn is -ve) 
+ 
+  if (period < 60 || period> 300) {
+    directn = -directn; // flip direction at large and small values
     }
-  if (flashTime <= 300)  {
-    changeSize = 10;
-    }
-  else
-    changeSize = 100;
+  changeSize = (period/15); //make alterations to period dependent on period of flash - alter the period less at higher flash rates
+  
 }
